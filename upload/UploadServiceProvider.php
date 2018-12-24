@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libs\Upload;
+namespace Flaravel\Upload;
 
 use Illuminate\Support\ServiceProvider;
 
