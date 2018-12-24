@@ -23,7 +23,7 @@
                 "Flaravel\\Upload\\UploadServiceProvider"
             ],
             "aliases": {
-                "Debugbar": "Flaravel\\Upload\\Fupload"
+                "Fupload": "Flaravel\\Upload\\Fupload"
             }
         }
     },
