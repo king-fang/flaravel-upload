@@ -3,7 +3,8 @@
 namespace Flaravel\Upload;
 
 use App\Http\Controllers\Controller;
-use App\Libs\Upload\UploadInterface;
+use Flaravel\Upload\UploadInterface;
+use Flaravel\Upload\UploadOssInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use OSS\Core\OssException;

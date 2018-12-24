@@ -2,6 +2,7 @@
 
 namespace Flaravel\Upload;
 
+use Flaravel\Upload\UploadManager;
 use Illuminate\Support\ServiceProvider;
 
 class UploadServiceProvider extends ServiceProvider
