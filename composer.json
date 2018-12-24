@@ -1,0 +1,27 @@
+{
+    "name": "flaravel/upload",
+    "description": "laravel 文件上传",
+    "require": {
+        "aliyuncs/oss-sdk-php": "2.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fxj",
+            "email": "fangxijun0101@meimeik.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Flaravel\\Upload\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flaravel\\Upload\\UploadServiceProvider"
+            ]
+        }
+    }
+}
