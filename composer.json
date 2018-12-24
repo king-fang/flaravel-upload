@@ -16,12 +16,5 @@
         "psr-4": {
             "Flaravel\\Upload\\": "src/"
         }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Flaravel\\Upload\\UploadServiceProvider"
-            ]
-        }
     }
 }

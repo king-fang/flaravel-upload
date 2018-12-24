@@ -2,6 +2,8 @@
 
 namespace Flaravel\Upload;
 
+use Flaravel\Upload\UploadLocal;
+use Flaravel\Upload\UploadOss;
 use Illuminate\Support\Manager;
 
 /**
