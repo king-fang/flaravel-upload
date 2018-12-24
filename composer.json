@@ -16,5 +16,15 @@
         "psr-4": {
             "Flaravel\\Upload\\": "src/"
         }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flaravel\\Upload\\UploadServiceProvider"
+            ],
+            "aliases": {
+                "Debugbar": "Flaravel\\Upload\\Fupload"
+            }
+        }
+    },
 }
