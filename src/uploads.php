@@ -9,13 +9,13 @@ return [
     //外网上传
     'endpoint' => \App\Libs\Upload\UploadOssInterface::OSS_SERVICE,
 
-    'ossServer' => env('ALIOSS_SERVER', 'http://oss-cn-hangzhou.aliyuncs.com'),                      // 外网
+    'ossServer' => env('ALIOSS_SERVER', ''),                      // 外网
 
-    'ossServerInternal' => env('ALIOSS_SERVERINTERNAL', 'http://oss-cn-hangzhou-internal.aliyuncs.com'),      // 内网
+    'ossServerInternal' => env('ALIOSS_SERVERINTERNAL', ''),      // 内网
 
-    'AccessKeyId' => env('ALIOSS_KEYID', 'LTAICg0llMn4ZL7e'),                     // key
+    'AccessKeyId' => env('ALIOSS_KEYID', ''),                     // key
 
-    'AccessKeySecret' => env('ALIOSS_KEYSECRET', 'KedDhHyJmMJMV0Nmd9PvB8qVqnPAIZ'),             // secret
+    'AccessKeySecret' => env('ALIOSS_KEYSECRET', ''),             // secret
 
-    'BucketName' => env('ALIOSS_BUCKETNAME', 'suxiangdai')                  // bucket
+    'BucketName' => env('ALIOSS_BUCKETNAME', '')                  // bucket
 ];
