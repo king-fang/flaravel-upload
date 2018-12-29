@@ -4,7 +4,7 @@ namespace Flaravel\Upload;
 
 use Illuminate\Support\Facades\Facade;
 /**
- * @method static object upload(object $file,string $path = '')
+ * @method static object upload(object $file,string $path = '',$ext = null)
  * @method static bool delete(string $path)
  */
 class Fupload extends Facade

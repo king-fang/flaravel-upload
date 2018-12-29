@@ -28,12 +28,13 @@ class Upload
      * 普通文件上传
      * @param object $file 文件对象
      * @param string $path 文件路径
+     * @param string $path 文件后缀
      * @return mixed
      * @throws \Exception
      */
-    public function upload($file,$path)
+    public function upload($file,$path,$ext = null)
     {
-        $this->setFileName($file,$path);
+        $this->setFileName($file,$path,$ext);
         if($this->upload instanceof UploadLocalInterface)
         {
             $this->file = $this->upload->lupload($file,$path);
@@ -61,11 +62,11 @@ class Upload
      * @param string $path 文件路径
      * @throws \Exception
      */
-    private function setFileName($file,$path)
+    private function setFileName($file,$path,$ext = null)
     {
-        if(is_object($file) && $file->isValid())
+        if(is_object($file) || $file->isValid())
         {
-            $this->filePath = $path.'/'.Str::uuid()->getHex().'.'.$file->getClientOriginalExtension();
+            $this->filePath = $path.'/'.Str::uuid()->getHex().'.'. $ext ?? $file->getClientOriginalExtension();
         }else{
             throw  new \Exception('The uploaded file is corrupted.');
         }
