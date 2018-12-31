@@ -66,7 +66,8 @@ class Upload
     {
         if(is_object($file) || $file->isValid())
         {
-            $this->filePath = $path.'/'.Str::uuid()->getHex().'.'. $ext ?? $file->getClientOriginalExtension();
+            $ext = is_null($ext) ? $file->getClientOriginalExtension() : $ext;
+            $this->filePath = $path.'/'.Str::uuid()->getHex().'.'. $ext;
         }else{
             throw  new \Exception('The uploaded file is corrupted.');
         }
