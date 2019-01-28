@@ -37,8 +37,21 @@ class UploadOss implements UploadOssInterface
      */
     public function supload($file,$path = '/')
     {
+        if(is_string($file))
+        {
+            return $this->strupload($file,$path);
+        }
         try {
             return $this->ossClient->uploadFile($this->bucketName,$path,$file);
+        } catch (OssException $e) {
+            throw new \Exception($e->getMessage(), 1);
+        }
+    }
+
+    private function strupload($file,$path = '/')
+    {
+        try {
+            return $this->ossClient->putObject($this->bucketName,$path,$file);
         } catch (OssException $e) {
             throw new \Exception($e->getMessage(), 1);
         }

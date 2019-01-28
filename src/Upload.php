@@ -64,9 +64,16 @@ class Upload
      */
     private function setFileName($file,$path,$ext = null)
     {
-        if(is_object($file) || $file->isValid())
+        if(is_object($file) || is_string($file) || $file->isValid())
         {
-            $ext = is_null($ext) ? $file->getClientOriginalExtension() : $ext;
+            if(method_exists($file, 'getClientOriginalExtension'))
+            {
+                $ext = $file->getClientOriginalExtension();
+            }else{
+                if(is_null($ext)){
+                    throw  new \Exception('The uploaded file is corrupted.');
+                }
+            }
             $this->filePath = $path.'/'.Str::uuid()->getHex().'.'. $ext;
         }else{
             throw  new \Exception('The uploaded file is corrupted.');
