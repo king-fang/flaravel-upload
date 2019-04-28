@@ -77,4 +77,55 @@ class UploadOss implements UploadOssInterface
             throw new \Exception($e->getMessage(), 1);
         }
     }
+
+    /**
+     * 列举oss 文件
+     * @param string $prefix 你要列出的文件所在的目录名
+     * @param string $nextMarker 从上一次listObjects读到的最后一个文件的下一个文件开始继续获取文件列表
+     * @param string $delimiter 为行使文件夹功能的分割符号，如 /
+     * @param number $maxKeys max-keys用于限定此次返回object的最大数
+     */
+    public function getOssFileList($config)
+    {
+
+        $list = [];
+        $options = [
+            'delimiter' => $config['delimiter'] ?? '/',
+            'prefix'    => $config['prefix'],
+            'max-keys'  => $config['maxKeys'] ?? 2,
+            'marker'    => $config['nextMarker'] ?? ''
+        ];
+
+        try {
+            $listObjectInfo = $this->ossClient->listObjects($this->bucketName, $options);
+        } catch (OssException $e) {
+           throw new \Exception($e->getMessage(), 1);
+        }
+        $nextMarker = $listObjectInfo->getNextMarker();
+        $lastMarker = $listObjectInfo->getMarker();
+        $objectList = $listObjectInfo->getObjectList(); // object list
+        $prefixList = $listObjectInfo->getPrefixList(); // directory list
+
+        $list['nextMarker'] = $nextMarker;
+        $list['lastMarker'] = $lastMarker;
+
+        if (!empty($prefixList)) {
+            foreach ($prefixList as $prefixInfo) {
+                $list['prefix'] = $prefixInfo->getPrefix();
+            }
+        }
+
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                 $list['files'][] = [
+                    'name' => $objectInfo->getKey(),
+                    'size' => $objectInfo->getSize(),
+                    'lastModified' => $objectInfo->getLastModified(),
+                ];
+            }
+        }else{
+            $list['files'] = [];
+        }
+        return $list;
+    }
 }

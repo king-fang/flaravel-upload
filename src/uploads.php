@@ -7,7 +7,7 @@ return [
     'driver' => 'local',
 
     //外网上传
-    'endpoint' => \App\Libs\Upload\UploadOssInterface::OSS_SERVICE,
+    'endpoint' => Flaravel\Upload\UploadOssInterface::OSS_SERVICE,
 
     'ossServer' => env('ALIOSS_SERVER', ''),                      // 外网
 

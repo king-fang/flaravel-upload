@@ -56,6 +56,22 @@ class Upload
             return $this->upload->sdelete($path);
         }
     }
+
+    //列举文件
+    public function getFileList(array $config){
+
+        if($this->upload instanceof UploadOssInterface)
+        {
+            if(empty($config)) return false;
+
+            if(!isset($config['prefix'])){
+                throw  new \Exception('Please enter the prefix folder search name.');
+            }
+
+            return $this->upload->getOssFileList($config);
+        }
+    }
+
     /**
      * 设置文件名
      * @param object $file 文件对象
