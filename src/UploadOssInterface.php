@@ -29,6 +29,15 @@ interface UploadOssInterface  extends UploadInterface
      * @param string $marker 从上一次listObjects读到的最后一个文件的下一个文件开始继续获取文件列表
      * @param string $delimiter 为行使文件夹功能的分割符号，如 /
      * @param number $maxkeys max-keys用于限定此次返回object的最大数
+     * @return array
      */
-    public function getOssFileList($config);
+    public function getOssFileList($config = []);
+
+
+    /**
+     * 检测文件是否存在
+     * @param  string $object 文件
+     * @return bool
+     */
+    public function ossFileExist($object);
 }

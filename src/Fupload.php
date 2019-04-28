@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static array getFileList($config)
  * -----------------------------------------------------------------
+ * @method static bool fileExist($path)
  */
 class Fupload extends Facade
 {

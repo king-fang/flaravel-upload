@@ -85,19 +85,22 @@ class UploadOss implements UploadOssInterface
      * @param string $delimiter 为行使文件夹功能的分割符号，如 /
      * @param number $maxKeys max-keys用于限定此次返回object的最大数
      */
-    public function getOssFileList($config)
+    public function getOssFileList($config = [])
     {
 
         $list = [];
-        $options = [
-            'delimiter' => $config['delimiter'] ?? '/',
-            'prefix'    => $config['prefix'],
-            'max-keys'  => $config['maxKeys'] ?? 2,
-            'marker'    => $config['nextMarker'] ?? ''
-        ];
 
+        if(isset($config['prefix']) && !empty($config['prefix']))
+        {
+            $options = [
+                'delimiter' => $config['delimiter'] ?? '/',
+                'prefix'    => $config['prefix'],
+                'max-keys'  => $config['maxKeys'] ?? 10,
+                'marker'    => $config['nextMarker'] ?? ''
+            ];
+        }
         try {
-            $listObjectInfo = $this->ossClient->listObjects($this->bucketName, $options);
+            $listObjectInfo = $this->ossClient->listObjects($this->bucketName, $options ?? '');
         } catch (OssException $e) {
            throw new \Exception($e->getMessage(), 1);
         }
@@ -111,15 +114,19 @@ class UploadOss implements UploadOssInterface
 
         if (!empty($prefixList)) {
             foreach ($prefixList as $prefixInfo) {
-                $list['prefix'] = $prefixInfo->getPrefix();
+                $list['prefix'][] = $prefixInfo->getPrefix();
             }
         }
-
         if (!empty($objectList)) {
-            foreach ($objectList as $objectInfo) {
-                 $list['files'][] = [
+            foreach ($objectList as $key => $objectInfo) {
+                if($objectInfo->getSize() == 0)
+                {
+                    continue;
+                }
+                $list['files'][] = [
                     'name' => $objectInfo->getKey(),
                     'size' => $objectInfo->getSize(),
+                    'image' => config('upload.ossUrl').$objectInfo->getKey(),
                     'lastModified' => $objectInfo->getLastModified(),
                 ];
             }
@@ -127,5 +134,20 @@ class UploadOss implements UploadOssInterface
             $list['files'] = [];
         }
         return $list;
+    }
+
+    /**
+     * 检测当前文件夹下面文件是否存在
+     * @param  string $object 文件
+     * @return bool
+     */
+    public function ossFileExist($object)
+    {
+        try{
+            $exist = $this->ossClient->doesObjectExist($this->bucketName, $object);
+        } catch(OssException $e) {
+            throw new \Exception($e->getMessage(), 1);
+        }
+        return $exist;
     }
 }

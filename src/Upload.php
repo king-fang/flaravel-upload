@@ -58,18 +58,22 @@ class Upload
     }
 
     //列举文件
-    public function getFileList(array $config){
+    public function getFileList(array $config = []){
 
         if($this->upload instanceof UploadOssInterface)
         {
-            if(empty($config)) return false;
-
-            if(!isset($config['prefix'])){
-                throw  new \Exception('Please enter the prefix folder search name.');
-            }
-
             return $this->upload->getOssFileList($config);
         }
+        return [];
+    }
+
+    public function fileExist($object)
+    {
+        if($this->upload instanceof UploadOssInterface)
+        {
+            return $this->upload->ossFileExist($object);
+        }
+        return false;
     }
 
     /**
