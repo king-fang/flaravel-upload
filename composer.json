@@ -1,9 +1,6 @@
 {
     "name": "flaravel/upload",
     "description": "laravel 文件上传",
-    "require": {
-        "aliyuncs/oss-sdk-php": "2.3"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +16,7 @@
     },
 
     "require": {
-        "php": ">=7.0.0"
+        "aliyuncs/oss-sdk-php": "2.3"
     },
 
     "require-dev": {
